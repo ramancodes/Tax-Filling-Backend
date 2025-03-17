@@ -14,7 +14,7 @@ const { loadModels, Models } = require('./src/models/index.js');
     await loadModels();
 
     const app = express();
-    const port = process.env.PORT || 3000;
+    const port = process.env.PORT || 9000;
     const router = require('express').Router();
     require("./src/routes")(router);
 
