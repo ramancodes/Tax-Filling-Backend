@@ -23,6 +23,7 @@ const loadValidations = async () => {
       });
 
     await Promise.all(servicePromises);
+    console.log("Available Validation:", Object.keys(Validation));
     console.log("Validation loaded successfully");
   } catch (err) {
     console.log("Error loading  Common:", err);

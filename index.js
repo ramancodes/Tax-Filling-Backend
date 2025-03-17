@@ -1,22 +1,34 @@
 const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
-const { router } = require('./src/routes/router');
-const { connectDB } = require('./src/config/connectPostgreDb.js');
 const { loadCommons } = require('./src/common/index.js');
-const { loadValidations } = require('./src/validations/index.js')
-
-
-const app = express();
-const port = process.env.PORT || 3000;
-
-// connect to postgresql
-connectDB();
+const { loadValidations } = require('./src/validations/index.js');
+const { loadControllers } = require('./src/controllers/index.js');
+const { loadModels, Models } = require('./src/models/index.js');
 
 // load glob files
-loadCommons();
-loadValidations();
+( async () => {
+    await loadControllers();
+    await loadCommons();
+    await loadValidations();
+    await loadModels();
 
-app.use('/api', router);
+    const app = express();
+    const port = process.env.PORT || 3000;
+    const router = require('express').Router();
+    require("./src/routes")(router);
 
-app.listen(port, ()=>console.log("Server Running in port", port));
+    // await Models.sequelize.sync({ force: true })
+    await Models.sequelize.sync()
+    .then(()=>{
+        console.log("Database synced!");
+        app.use(cors());
+        app.use(express.json());
+        app.use(express.urlencoded({ extended: true }));
+        app.use('/api', router);
+        app.listen(port, ()=>console.log("Server Running in port", port));
+    })
+    .catch((err)=>{
+        console.log("Error in database syncing", err);
+    });
+})();
