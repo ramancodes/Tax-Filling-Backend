@@ -106,7 +106,7 @@ module.exports = {
     },
     getUsername: async (req, res) => {
         try {
-            const { error, value } = Validation.userValidator.getuserName(req.body);
+            const { error, value } = Validation.userValidator.getuserName(req.query);
             if (error) {
                 return res.status(400).json({
                     message: 'Validation failed',
@@ -235,7 +235,8 @@ module.exports = {
             }
 
             const user = await Models.user.findOne({where: {
-                username: value.username
+                username: value.username,
+                role: value.role
             }});
 
             if (!user) {
@@ -250,7 +251,8 @@ module.exports = {
                 {password: hashedPassword},
                 {
                     where: {
-                        username: value.username
+                        username: value.username,
+                        role: value.role
                     }
                 }
             );

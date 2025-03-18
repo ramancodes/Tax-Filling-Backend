@@ -36,7 +36,8 @@ module.exports = {
   forgotPassword: (resetPasswordObj) => {
     const schema = Joi.object({
       username: Joi.string().trim().min(1).required(),
-      newPassword: Joi.string().trim().min(8).max(12).required()
+      newPassword: Joi.string().trim().min(8).max(12).required(),
+      role: Joi.string().valid("user", "admin").required(),
     });
     return schema.validate(resetPasswordObj);
   },

@@ -17,14 +17,14 @@ const { loadModels, Models } = require('./src/models/index.js');
     const port = process.env.PORT || 9000;
     const router = require('express').Router();
     require("./src/routes")(router);
+    app.use(cors());
+    app.use(express.json());
+    app.use(express.urlencoded({ extended: true }));
 
     // await Models.sequelize.sync({ force: true })
     await Models.sequelize.sync()
     .then(()=>{
         console.log("Database synced!");
-        app.use(cors());
-        app.use(express.json());
-        app.use(express.urlencoded({ extended: true }));
         app.use('/api', router);
         app.listen(port, ()=>console.log("Server Running in port", port));
     })
