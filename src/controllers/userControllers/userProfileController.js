@@ -66,7 +66,7 @@ module.exports = {
     },
     getProfile: async (req, res)=>{
         try {
-            const { error, value } = Validation.userProfileValidator.getUserProfile(req.body);
+            const { error, value } = Validation.userProfileValidator.getUserProfile(req.params);
             if (error) {
                 return res.status(400).json({
                     message: 'Validation failed',
@@ -74,9 +74,17 @@ module.exports = {
                 });
             }
 
-            const profile = await Models.userProfile.findOne({where: {
-                UserId: value.UserId
-            }});
+            const profile = await Models.userProfile.findOne({
+                where: {
+                    UserId: value.UserId
+                },
+                include: [
+                    {
+                        model: Models.user,
+                        attributes: ['id', 'username', 'role', 'email', 'createdAt'],
+                    }
+                ]
+            });
 
             if(!profile){
                 return res.status(404).json({
