@@ -42,14 +42,16 @@ module.exports = {
                 password: hashedPassword,
             });
 
-            const userData = newUser.get({ plain: true });
-            delete userData.password;
+            const userData = {
+                id: newUser.id,
+                email: newUser.email,
+            }
             
             // Generate JWT token
-            const token = jwt.sign({id: newUser.id, username: newUser.username}, process.env.JWT_SECRET, {expiresIn: '1h'});
+            const token = jwt.sign({id: newUser.id, username: newUser.username}, process.env.JWT_SECRET, {expiresIn: '24h'});
 
             res.status(201).json({
-                message: 'User registered successfully! Login Again',
+                message: 'User registered successfully!',
                 token,
                 user: userData
             });
@@ -87,11 +89,14 @@ module.exports = {
                     message: 'Invalid password'
                 });
             }
-            const userData = user.get({ plain: true });
-            delete userData.password;
+
+            const userData = {
+                id: user.id,
+                email: user.email,
+            }
             
             // Generate JWT token
-            const token = jwt.sign({id: user.id, role: user.role}, process.env.JWT_SECRET, {expiresIn: '1h'});
+            const token = jwt.sign({id: user.id, role: user.role}, process.env.JWT_SECRET, {expiresIn: '24h'});
             res.status(200).json({
                 message: 'Login successful',
                 token,

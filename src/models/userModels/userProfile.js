@@ -12,12 +12,6 @@ module.exports = (sequelize, DataTypes) => {
       address: { type: DataTypes.STRING, allowNull: false },
       occupation: { type: DataTypes.STRING, allowNull: false },
       website: { type: DataTypes.STRING },
-      // userId: {
-      //   type: DataTypes.STRING,
-      //   allowNull: false,
-      //   references: { model: "Users", key: "id" },
-      //   onDelete: "CASCADE",
-      // },
     },
     { paranoid: true, timestamps: true }
   );
