@@ -48,7 +48,7 @@ module.exports = {
             }
             
             // Generate JWT token
-            const token = jwt.sign({id: newUser.id, username: newUser.username}, process.env.JWT_SECRET, {expiresIn: '1h'});
+            const token = jwt.sign({id: newUser.id, username: newUser.username}, process.env.JWT_SECRET, {expiresIn: '24h'});
 
             res.status(201).json({
                 message: 'User registered successfully!',
@@ -96,7 +96,7 @@ module.exports = {
             }
             
             // Generate JWT token
-            const token = jwt.sign({id: user.id, role: user.role}, process.env.JWT_SECRET, {expiresIn: '1h'});
+            const token = jwt.sign({id: user.id, role: user.role}, process.env.JWT_SECRET, {expiresIn: '24h'});
             res.status(200).json({
                 message: 'Login successful',
                 token,
