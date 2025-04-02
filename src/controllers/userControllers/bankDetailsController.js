@@ -79,7 +79,8 @@ module.exports = {
             const bankDetails = await Models.bankDetails.findAndCountAll({
                 where: {
                     UserId: value.UserId
-                }
+                },
+                order: [['createdAt', 'DESC']]
             });
 
             if(!bankDetails){

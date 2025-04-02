@@ -79,7 +79,8 @@ module.exports = {
             const incomeSources = await Models.incomeSources.findAndCountAll({
                 where: {
                     UserId: value.UserId
-                }
+                },
+                order: [['createdAt', 'DESC']]
             });
 
             if(!incomeSources){
