@@ -1,4 +1,4 @@
-const { generate } = require('../../common/helper');
+const { generate, calculateAge } = require('../../common/helper');
 const { Models } = require('../../models/index')
 const { Validation } = require('../../validations/index')
 
@@ -91,6 +91,10 @@ module.exports = {
                     message: 'No profile found! Create a profile'
                 });
             }
+
+            const age = calculateAge(profile.dob);
+
+            profile['age'] = age;
 
             res.status(200).json({
                 message: 'User profile fetched successfully!',
