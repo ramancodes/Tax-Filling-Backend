@@ -85,6 +85,10 @@ module.exports = {
             }
 
             incomeDetails.push({totalIncome: totalIncome});
+            incomeDetails.push({
+                incomeType: "Total Income",
+                incomeAmount: totalIncome,
+            });
 
             const prefix = Date.now() + '_incomeTax';
             const fileUrl = await handleS3Upload(req.file, prefix);
