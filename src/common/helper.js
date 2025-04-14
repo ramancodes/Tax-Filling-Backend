@@ -9,6 +9,7 @@ const BUCKET_NAME = process.env.S3_BUCKET_NAME;
 
 module.exports = {
   generate: () => uuidv4(),
+  getCurrentFees: () => {return 1100},
   calculateAge: (dob) => {
     const birthDate = new Date(dob);
     const today = new Date();

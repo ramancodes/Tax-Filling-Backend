@@ -30,4 +30,11 @@ module.exports = {
     });
     return schema.validate(userObj);
   },
+  paymentRazorpay: (userObj) => {
+    const schema = Joi.object({
+      incomeTaxId: Joi.string().trim().required(),
+      type: Joi.string().trim().required(),
+    });
+    return schema.validate(userObj);
+  }
 };

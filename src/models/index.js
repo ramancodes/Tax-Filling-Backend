@@ -1,6 +1,6 @@
 const path = require("path");
 const { glob } = require("glob");
-const { Sequelize, DataTypes } = require("sequelize");
+const { Sequelize, DataTypes, Op } = require("sequelize");
 
 const basename = path.basename(__filename);
 const Models = {};
@@ -53,4 +53,5 @@ const loadModels = async () => {
 
 Models.sequelize = sequelize;
 Models.Sequelize = Sequelize;
+Models.Op = Op;
 module.exports = { loadModels, Models };
