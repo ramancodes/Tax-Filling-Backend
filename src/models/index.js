@@ -12,6 +12,12 @@ const sequelize = new Sequelize(
   {
     dialect: "postgres",
     host: process.env.DATABASE_HOST || "localhost",
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false // Use this only for development. For production, set up proper SSL certificates
+      }
+    }
   }
 );
 
