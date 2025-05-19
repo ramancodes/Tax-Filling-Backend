@@ -16,6 +16,7 @@ module.exports = {
 
             const newIncomeSource = await Models.incomeSources.create({
                 ...value,
+                userId: value.UserId,
                 id: generate()
             });
 
@@ -78,7 +79,7 @@ module.exports = {
 
             const incomeSources = await Models.incomeSources.findAndCountAll({
                 where: {
-                    UserId: value.UserId
+                    userId: value.UserId
                 },
                 order: [['createdAt', 'DESC']]
             });

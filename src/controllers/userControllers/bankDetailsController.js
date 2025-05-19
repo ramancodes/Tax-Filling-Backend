@@ -16,6 +16,7 @@ module.exports = {
 
             const newBankDetails = await Models.bankDetails.create({
                 ...value,
+                userId: value.UserId,
                 id: generate()
             });
 
@@ -78,7 +79,7 @@ module.exports = {
 
             const bankDetails = await Models.bankDetails.findAndCountAll({
                 where: {
-                    UserId: value.UserId
+                    userId: value.UserId
                 },
                 order: [['createdAt', 'DESC']]
             });

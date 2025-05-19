@@ -23,7 +23,6 @@ const loadControllers = async () => {
       });
 
     await Promise.all(servicePromises);
-    console.log("Available Controllers:", Object.keys(Controllers));
     console.log("Controllers loaded successfully");
   } catch (err) {
     console.log("Error loading  Controller:", err);
