@@ -44,7 +44,6 @@ const loadModels = async () => {
       })
     );
 
-    console.log("Available models:", Object.keys(Models));
     Object.keys(Models).forEach((modelName) => {
       if (Models[modelName].associate) {
         Models[modelName].associate(Models);

@@ -9,7 +9,6 @@ module.exports = {
       ifscCode: Joi.string().trim().required(),
       UserId: Joi.string().trim().required(),
     });
-    console.log("Hello");
     return schema.validate(userObj);
   },
   updateBankDetails: (userObj) => {

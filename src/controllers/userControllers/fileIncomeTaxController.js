@@ -25,7 +25,7 @@ module.exports = {
 
             const incomeSources = await Models.incomeSources.findAndCountAll({
                 where: {
-                    UserId: value.UserId
+                    userId: value.UserId
                 },
                 order: [['createdAt', 'DESC']]
             });
@@ -40,12 +40,13 @@ module.exports = {
                 incomeType: income.source,
                 incomeAmount: income.amountPerAnnum,
             }));
+            
 
             const totalIncome = incomeDetails.reduce((acc, current) => acc + Number(current.incomeAmount), 0);
 
             const jobIncome = await Models.incomeSources.findOne({
                 where: {
-                    UserId: value.UserId,
+                    userId: value.UserId,
                     [Models.Op.or]: [
                         { source: { [Models.Op.iLike]: '%employee%' } },
                         { source: { [Models.Op.iLike]: '%employment%' } },
@@ -59,16 +60,16 @@ module.exports = {
               
             const userDetails = await Models.userProfile.findOne({
                 where: {
-                    UserId: value.UserId
+                    userId: value.UserId
                 }
             });
-
+            
             if(!userDetails){
                 return res.status(404).json({
                     message: 'No profile found! Update Your profile'
                 });
             }
-
+            
             const age = calculateAge(userDetails.dob);
 
             let taxAmount;
@@ -125,6 +126,7 @@ module.exports = {
             const newincomeTax = await Models.incomeTaxModel.create({
                 ...value,
                 id: generate(),
+                userId: value.UserId,
                 file: fileUrl.data,
                 totalTaxAmount: taxAmount,
                 incomeDetails: incomeDetails,
@@ -190,7 +192,7 @@ module.exports = {
 
             const incomeTaxs = await Models.incomeTaxModel.findAndCountAll({
                 where: {
-                    UserId: value.UserId
+                    userId: value.UserId
                 },
                 order: [['createdAt', 'DESC']]
             });
@@ -262,13 +264,11 @@ module.exports = {
             // creation of an order
             const order = await razorpayInstance.orders.create(options);
 
-            console.log(order);
-
             await Models.payments.create({
                 id: order?.id,
                 amount: amount,
                 success: false,
-                UserId: incomeTax.UserId,
+                userId: incomeTax.UserId,
                 incomeTaxId: value.incomeTaxId
             });
     

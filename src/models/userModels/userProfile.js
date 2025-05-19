@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   const UserProfile = sequelize.define(
-    "UserProfile",
+    "userProfile",
     {
       id: { type: DataTypes.UUID, primaryKey: true, allowNull: false },
       firstName: { type: DataTypes.STRING, allowNull: false },

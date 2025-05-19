@@ -15,6 +15,7 @@ module.exports = {
 
             const newProfile = await Models.userProfile.create({
                 ...value,
+                userId: value.UserId,
                 id: generate()
             });
 
@@ -37,7 +38,7 @@ module.exports = {
             }
 
             const profile = await Models.userProfile.findOne({where: {
-                UserId: value.UserId
+                userId: value.UserId
             }});
 
             if(!profile){
@@ -76,7 +77,7 @@ module.exports = {
 
             const profile = await Models.userProfile.findOne({
                 where: {
-                    UserId: value.UserId
+                    userId: value.UserId
                 },
                 include: [
                     {

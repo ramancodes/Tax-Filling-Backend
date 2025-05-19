@@ -29,8 +29,6 @@ module.exports = {
       const nameOnly = path.basename(originalName, path.extname(originalName));
       const newFileName = `${prefix}_${nameOnly}${path.extname(originalName)}`;
 
-      console.log("Hello");
-
       // Upload file to S3
       const fileStream = fs.createReadStream(file.path);
       const fileKey = `etaxUploads/${newFileName}`;

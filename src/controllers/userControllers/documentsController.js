@@ -25,6 +25,7 @@ module.exports = {
             
             const newDocument = await Models.documentModel.create({
                 ...value,
+                userId: value.UserId,
                 id: generate(),
                 file: fileUrl.data
             });
@@ -87,7 +88,7 @@ module.exports = {
 
             const documents = await Models.documentModel.findAndCountAll({
                 where: {
-                    UserId: value.UserId
+                    userId: value.UserId
                 },
                 order: [['createdAt', 'DESC']]
             });
